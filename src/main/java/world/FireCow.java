@@ -11,8 +11,8 @@ public class FireCow extends Creature {
     int bx, by;
 
     public FireCow(World world, char glyph, Color color, int maxHP, int maxSP, int attack, int defense,
-            int visionRadius, Player player) {
-        super(world, glyph, color, maxHP, maxSP, attack, defense, visionRadius);
+            int visionRadius, Player player,int money) {
+        super(world, glyph, color, maxHP, maxSP, attack, defense, visionRadius,money);
         this.player = player;
         this.type = ENEMY_TYPE;
         bx = 4;
@@ -71,8 +71,8 @@ public class FireCow extends Creature {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 if (x != 0 || y != 0) {
-                    Bullet b = new Bullet(world, (char) 7, this.color(), this.range, 0, this.attackValue(), 0, 0,
-                            PLAYER_TYPE);
+                    Bullet b = new Bullet(world, (char) 249, this.color(), this.range, 0, this.attackValue(), 0, 0,
+                            PLAYER_TYPE,0);
                     b.setDirection(x, y);
                     world.addSpecialLocation(b, this.x() + x, this.y() + y);
                     new Thread(b).start();

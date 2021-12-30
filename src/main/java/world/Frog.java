@@ -9,8 +9,8 @@ public class Frog extends Creature{
     public int spores = 7;
 
 
-    public Frog(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius){
-        super(world, glyph, color, maxHP,maxSP, attack, defense, visionRadius);
+    public Frog(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius,int money){
+        super(world, glyph, color, maxHP,maxSP, attack, defense, visionRadius,money);
         this.type = ENEMY_TYPE;
         setDirection_random();
     }

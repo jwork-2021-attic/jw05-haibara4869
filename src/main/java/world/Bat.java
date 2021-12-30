@@ -8,8 +8,8 @@ public class Bat extends Creature{
     public int range = 10;
 
 
-    public Bat(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius){
-        super(world, glyph, color, maxHP,maxSP, attack, defense, visionRadius);
+    public Bat(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius,int money){
+        super(world, glyph, color, maxHP,maxSP, attack, defense, visionRadius,money);
         this.type = ENEMY_TYPE;
         setDirection_random();
     }
@@ -45,7 +45,7 @@ public class Bat extends Creature{
     }  
 
     public synchronized void shoot(){
-        Bullet b = new Bullet(world, (char)7, this.color(), this.range, 0, this.attackValue(), 0, 0,PLAYER_TYPE);
+        Bullet b = new Bullet(world, (char)249, this.color(), this.range, 0, this.attackValue(), 0, 0,PLAYER_TYPE,0);
         b.setDirection(this.dx,this.dy);
         world.addSpecialLocation(b,this.x()+dx,this.y()+dy);
         new Thread(b).start();

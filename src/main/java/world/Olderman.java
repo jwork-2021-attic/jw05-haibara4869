@@ -5,17 +5,13 @@ import java.awt.Color;
 import screen.*;
 public class Olderman extends Creature{
 
-    private PlayScreen screen;
 
-    public Olderman(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius){
-        super(world, glyph, color, maxHP,maxSP, attack, defense, visionRadius);
+    public Olderman(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius,int money){
+        super(world, glyph, color, maxHP,maxSP, attack, defense, visionRadius,money);
         this.type = NPC_TYPE;
     }
     
-    public void setScreen(PlayScreen s){
-        this.screen = s;
-    }
-
+    
     public Creature find_aim(){
         if(world.creature(this.x()-1, this.y())!=null){
             return world.creature(this.x()-1, this.y());
@@ -36,7 +32,7 @@ public class Olderman extends Creature{
         Creature other = find_aim();
         if(other!=null){
             if(other.type == PLAYER_TYPE){
-                this.screen.setGamestate(2);
+                this.modifyHP(-1*this.maxHP());
             }
         }  
     }

@@ -28,9 +28,9 @@ public enum Tile {
 
     FLOOR((char) 250, AsciiPanel.green),
 
-    WALL((char) 177, AsciiPanel.brightBlack),
+    WALL((char) 160, AsciiPanel.brightBlack),
 
-    FIRE((char) 247, AsciiPanel.red),
+    FIRE((char) 162, AsciiPanel.red),
     WATER((char) 247, AsciiPanel.blue),
 
     BOUNDS('x', AsciiPanel.magenta);

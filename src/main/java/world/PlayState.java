@@ -1,7 +1,8 @@
 package world;
 
+import java.io.Serializable;
 
-public class PlayState implements Runnable{
+public class PlayState implements Runnable,Serializable{
     private Player player;
     private World world;
 

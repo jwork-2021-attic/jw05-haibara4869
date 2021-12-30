@@ -99,6 +99,11 @@ public class WorldBuilder {
 
     }
 
+    public WorldBuilder makeOnlineCaves() {
+        return randomizeTiles().smooth(6);
+
+    }
+
     public WorldBuilder addSpecialTile() {
 
         for (int x = 0; x < this.width; x++) {

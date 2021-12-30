@@ -13,8 +13,8 @@ public class Bullet extends Creature{
         this.dy = dy;
     }
 
-    public  Bullet(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius,int aim_type){
-        super(world, glyph, color, maxHP,maxSP, attack, defense, visionRadius);
+    public  Bullet(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius,int aim_typeint ,int money){
+        super(world, glyph, color, maxHP,maxSP, attack, defense, visionRadius,money);
         this.type = THING_TYPE;
         this.aim_type = aim_type;
     }

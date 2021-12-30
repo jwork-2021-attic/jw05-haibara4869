@@ -17,32 +17,28 @@
  */
 package screen;
 
-import asciiPanel.AsciiPanel;
 import java.awt.event.KeyEvent;
+import asciiPanel.AsciiPanel;
 
 /**
  *
  * @author Aeranythe Echosong
  */
-public abstract class RestartScreen implements Screen {
+public class OnlineLoseScreen extends RestartScreen {
 
     @Override
-    public abstract void displayOutput(AsciiPanel terminal);
+    public void displayOutput(AsciiPanel terminal) {
+        terminal.write("You lost! Press enter to try again.", 0, 0);
+    }
 
-    @Override
     public Screen respondToUserInput(KeyEvent key) {
         switch (key.getKeyCode()) {
             case KeyEvent.VK_ENTER:
-                PlayScreen playScreen = new PlayScreen();
-                new Thread(playScreen).start();
-                return playScreen;
+                ClientScreen cs = new ClientScreen("0.0.0.0", 1234);
+                new Thread(cs).start();
+                return cs;
             default:
                 return this;
         }
     }
-    @Override
-    public Screen respondToUserInput_released(KeyEvent key){
-        return this;
-    }
-
 }

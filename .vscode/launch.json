@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Summer",
+            "request": "launch",
+            "mainClass": "Summer",
+            "projectName": "jw05"
+        },
+        {
+            "type": "java",
+            "name": "Launch Test",
+            "request": "launch",
+            "mainClass": "Test",
+            "projectName": "jw05"
+        },
+        {
+            "type": "java",
+            "name": "Launch Client",
+            "request": "launch",
+            "mainClass": "nio.Client",
+            "projectName": "jw05"
+        },
+        {
+            "type": "java",
+            "name": "Launch Server",
+            "request": "launch",
+            "mainClass": "nio.Server",
+            "projectName": "jw05"
+        },
+        {
+            "type": "java",
             "name": "Launch ApplicationMain",
             "request": "launch",
             "mainClass": "applicationmain.ApplicationMain",

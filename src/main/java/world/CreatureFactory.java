@@ -17,6 +17,7 @@
  */
 package world;
 
+import java.io.Serializable;
 import java.util.List;
 //import java.util.Scanner;
 
@@ -27,7 +28,7 @@ import screen.*;
  *
  * @author Aeranythe Echosong
  */
-public class CreatureFactory {
+public class CreatureFactory implements Serializable{
 
     private World world;
     private Player player;
@@ -37,8 +38,11 @@ public class CreatureFactory {
         player = null;
     }
     //player
+    public void setPlayer0(Player player){
+        this.player = player;
+    }
     public Player newPlayer(List<String> messages,PlayScreen s) {
-        Player player = new Player(this.world, (char)2, AsciiPanel.brightWhite, 100,100, 25, 5, 9);
+        Player player = new Player(this.world, (char)1, AsciiPanel.brightWhite, 100,100, 25, 5, 9,0);
         world.addSpecialLocation(player,1,1);
         player.setMessages(messages);
         this.player = player;
@@ -46,30 +50,29 @@ public class CreatureFactory {
     }
     //enemy & boss
     public Frog newFrog() {
-        Frog frog = new Frog(this.world, (char)1, AsciiPanel.brightRed, 20,0, 20, 0, 0);
+        Frog frog = new Frog(this.world, (char)3, AsciiPanel.brightRed, 20,0, 20, 0, 0,10);
         //world.addSpecialLocation(frog,3,3);
         world.addAtEmptyLocation(frog);
         new Thread(frog).start();
         return frog;
     }
     public Bat newBat() {
-        Bat bat = new Bat(this.world, (char)1, AsciiPanel.brightBlue, 10,0, 20, 0, 0);
+        Bat bat = new Bat(this.world, (char)2, AsciiPanel.brightBlue, 10,0, 20, 0, 0,10);
         //world.addSpecialLocation(bat,4,4);
         world.addAtEmptyLocation(bat);
         new Thread(bat).start();
         return bat;
     }
     public FireCow newFireCow() {
-        FireCow firecow = new FireCow(this.world, (char)2, AsciiPanel.darkpink, 50, 0, 30, 0, 0,this.player);
+        FireCow firecow = new FireCow(this.world, (char)4, AsciiPanel.darkpink, 50, 0, 30, 0, 0,this.player,50);
         world.addSpecialLocation(firecow,4,world.height()-6);
         new Thread(firecow).start();
         return firecow;
     }
     //npc
-    public Olderman newOlderman(PlayScreen s) {
-        Olderman olderman = new Olderman(this.world, (char)2, AsciiPanel.pink, 150 , 0, 0, 0, 0);
+    public Olderman newOlderman() {
+        Olderman olderman = new Olderman(this.world, (char)5, AsciiPanel.pink, 150 , 0, 0, 0, 0,0);
         world.addSpecialLocation(olderman,world.width()-2,world.height()-2);
-        olderman.setScreen(s);
         new Thread(olderman).start();
         return olderman;
     }

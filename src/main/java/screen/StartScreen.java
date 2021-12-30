@@ -18,6 +18,7 @@
 package screen;
 
 import asciiPanel.AsciiPanel;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -28,7 +29,41 @@ public class StartScreen extends RestartScreen {
     @Override
     public void displayOutput(AsciiPanel terminal) {
         terminal.write("This is the start screen.", 0, 0);
-        terminal.write("Press ENTER to continue...", 0, 1);
+        terminal.write("Press ENTER to take your risk", 0, 1);
+        terminal.write("~.New Game.~", 4, 5);
+        terminal.write("~.Archives.~", 4, 7);
+        terminal.write("~. OnLine .~", 4, 9);
+        terminal.write((char) 26, 3, 5 + curSelected * 2);
     }
 
+    protected int curSelected = 0;
+
+    @Override
+    public Screen respondToUserInput(KeyEvent key) {
+        switch (key.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                curSelected = (curSelected - 1 + 3) % 3;
+                break;
+            case KeyEvent.VK_DOWN:
+                curSelected = (curSelected + 1) % 3;
+                break;
+            case KeyEvent.VK_ENTER:
+                switch (this.curSelected) {
+                    case 0:
+                        PlayScreen ps = new PlayScreen();
+                        new Thread(ps).start();
+                        return ps;
+                    case 1:
+                        return new LoadScreen(this);
+                    case 2:
+                        ClientScreen cs = new ClientScreen("0.0.0.0",1234);
+                        new Thread(cs).start();
+                        return cs;
+                }
+                break;
+            default:
+                return this;
+        }
+        return this;
+    }
 }

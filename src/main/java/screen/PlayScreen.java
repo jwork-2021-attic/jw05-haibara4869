@@ -21,17 +21,18 @@ import world.*;
 import asciiPanel.AsciiPanel;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  *
  * @author Aeranythe Echosong
  */
-public class PlayScreen implements Screen {
+public class PlayScreen implements Screen, Serializable, Runnable {
 
     private World world;
     private Player player;
+    private Olderman olderman;
     private int screenWidth;
     private int screenHeight;
     private List<String> messages;
@@ -51,6 +52,18 @@ public class PlayScreen implements Screen {
         createCreatures(creatureFactory);
     }
 
+    public void run() {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                }
+            }
+        }, 0, 1000);
+    }
+
     public void setGamestate(int x){
         this.gameState =x;
     }
@@ -60,7 +73,7 @@ public class PlayScreen implements Screen {
         //player
         this.player = creatureFactory.newPlayer(this.messages,this);
         //npc
-        creatureFactory.newOlderman(this);
+        this.olderman = creatureFactory.newOlderman();
         //enemy
         for(int i = 0;i<25;i++){
             creatureFactory.newFrog();
@@ -71,6 +84,10 @@ public class PlayScreen implements Screen {
 
     private void createWorld() {
         world = new WorldBuilder(100,50).makeCaves().build();
+    }
+
+    public World getworld() {
+        return this.world;
     }
 
     private void displayTiles(AsciiPanel terminal, int left, int top) {
@@ -114,6 +131,9 @@ public class PlayScreen implements Screen {
         //gamestate
         if(player.hp()<1){
             setGamestate(1);
+        }
+        if(olderman.hp()<1){
+            setGamestate(2);
         }
         
         // Terrain and creatures
@@ -171,6 +191,9 @@ public class PlayScreen implements Screen {
         if(key.getKeyCode() == KeyEvent.VK_S){
             this.showTable = true;
         }
+        if(key.getKeyCode() == KeyEvent.VK_ESCAPE){
+            return new SaveScreen(this);
+        }
         player.respondToUserInput(key);
         return this;
     }
@@ -179,7 +202,7 @@ public class PlayScreen implements Screen {
     public Screen respondToUserInput_released(KeyEvent key){
         if(key.getKeyCode() == KeyEvent.VK_S){
             this.showTable = false;
-        }
+        }    
         return this;
     }
 

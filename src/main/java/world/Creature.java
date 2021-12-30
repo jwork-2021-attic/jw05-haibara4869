@@ -22,12 +22,13 @@ import java.awt.Color;
 import java.awt.Point;
 //import java.lang.*;
 //import java.util.Random;
+import java.io.Serializable;
 
 /**
  *
  * @author Aeranythe Echosong
  */
-public class Creature implements Runnable{
+public class Creature implements Runnable, Serializable{
 
     protected World world;
 
@@ -36,7 +37,6 @@ public class Creature implements Runnable{
     int ENEMY_TYPE = 2;
     int NPC_TYPE = 3;
     int THING_TYPE = 4;
-
 
     private int x;
 
@@ -105,6 +105,7 @@ public class Creature implements Runnable{
             this.hp = this.maxHP;
         }
         if (this.hp < 1) {
+            this.hp = 0;
             world.remove(this);
         }
     }
@@ -142,6 +143,24 @@ public class Creature implements Runnable{
     public int defenseValue() {
         return this.defenseValue;
     }
+
+    public int money;
+
+    public int money(){
+        return this.money;
+    }
+
+    public int modifyMoney(int amount) {
+        if (this.money+amount<0) {
+            this.money = 0;
+            return this.money;
+        }
+        else{
+            this.money += amount;
+            return -1*amount;
+        }
+    }
+
 
     private int visionRadius;
 
@@ -185,6 +204,9 @@ public class Creature implements Runnable{
     public void attack(){ 
     }
 
+    public void meet(){
+        
+    }
     public synchronized void run() {
     }
 
@@ -196,7 +218,7 @@ public class Creature implements Runnable{
     }
 
 
-    public Creature(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius) {
+    public Creature(World world, char glyph, Color color, int maxHP,int maxSP, int attack, int defense, int visionRadius,int money) {
         this.world = world;
         this.glyph = glyph;
         this.color = color;
@@ -207,6 +229,7 @@ public class Creature implements Runnable{
         this.attackValue = attack;
         this.defenseValue = defense;
         this.visionRadius = visionRadius;
+        this.money = money;
     }
 
 }
